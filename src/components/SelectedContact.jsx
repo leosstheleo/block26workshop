@@ -1,30 +1,33 @@
-import {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-export default function SelectedContact() {
-  const [selectedContactId, setSelectedContactId] = useState(null);
+export default function SelectedContact({ selectedContactId }) {
+  const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    async function fetchSelectedContactId() {
+    async function fetchSelectedContact() {
       try {
-        const response = await fetch(`https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users/${selectedContactId}`
+        const response = await fetch(
+          `https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users/${selectedContactId}`
         );
         const result = await response.json();
-        setSelectedContactId(result);
+        setContact(result);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
-    fetchSelectedContactId();
+    if (selectedContactId) {
+      fetchSelectedContact();
+    }
   }, [selectedContactId]);
 
   return (
     <div>
-      <h2>Contact Details!</h2>
-      {selectedContactId && (
+      <h2>Contact Details</h2>
+      {contact && (
         <div>
-          <p>Name: {selectedContactId.name}</p>
-          <p>Email: {selectedContactId.email}</p>
-          <p>Phone: {selectedContactId.phone}</p>
+          <p>Name: {contact.name}</p>
+          <p>Email: {contact.email}</p>
+          <p>Phone: {contact.phone}</p>
         </div>
       )}
     </div>
