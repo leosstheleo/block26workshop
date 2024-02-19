@@ -1,7 +1,7 @@
 import React from "react"; 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import ContactRow from "./ContactRow"
-import {useEffect} from "react";
+
 
 
 
